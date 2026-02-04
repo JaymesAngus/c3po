@@ -26,6 +26,4 @@ jobs:
         run: |
           export PYTHONPATH="$PWD/..:$PYTHONPATH"
           export MESA_GL_VERSION_OVERRIDE='3.3'
-          module load scitools
-          module load csc gcc mpich nccmp
           python -m unittest tests.runTest_cost_values
