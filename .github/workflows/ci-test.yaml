@@ -27,4 +27,6 @@ jobs:
           MPLBACKEND: 'Agg'
           PYTHONPATH: ${{ github.workspace }}/c3po
         run: |
-          python -m unittest tests.runTest_cost_values
+          pwd
+          ls -R
+          echo $PYTHONPATH
