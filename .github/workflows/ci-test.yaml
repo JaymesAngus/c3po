@@ -24,6 +24,7 @@ jobs:
 
       - name: Run tests
         env:
-          PYTHONPATH: ${{ github.workspace }}
+          MPLBACKEND: 'Agg'
         run: |
+          export PYTHONPATH="${PYTHONPATH}:$(pwd)"
           python -m unittest tests.runTest_cost_values
