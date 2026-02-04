@@ -1,5 +1,8 @@
-doc8
-snowballstemmer==2.2.0
-sphinx
-sphinx-rtd-theme
-sphinxcontrib-bibtex
+unittest
+argparse
+copy
+matplotlib.pyplot
+os
+glob
+shutil
+cv2
