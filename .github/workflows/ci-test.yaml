@@ -23,8 +23,8 @@ jobs:
           pip install -r .github/workflows/requirements.txt
 
       - name: Run tests
+        working-directory: c3po
         env:
           MPLBACKEND: 'Agg'
-          PYTHONPATH: /home/runner/work/c3po/c3po
         run: |
-          python -m unittest c3po.tests.runTest_cost_values
+          python -m unittest tests.runTest_cost_values
