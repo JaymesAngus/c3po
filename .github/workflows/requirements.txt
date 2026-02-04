@@ -1,8 +1,5 @@
-unittest
-argparse
-copy
-matplotlib.pyplot
-os
-glob
-shutil
-cv2
+matplotlib
+numpy
+opencv-python-headless
+Pillow
+scikit-image
