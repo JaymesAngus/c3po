@@ -27,4 +27,4 @@ jobs:
           MPLBACKEND: 'Agg'
         run: |
           export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-          python -m unittest tests.runTest_cost_values
+          python -m unittest c3po.tests.runTest_cost_values
