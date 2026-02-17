@@ -64,7 +64,6 @@ class ImageTestBaseClass(unittest.TestCase):
                 self.fail(f"output differs between: \n {generated_image}\n {reference_image}\n\n")
             else:
                 os.remove(generated_image)
-                pass
 
         if os.path.exists(self.output_dir):
             shutil.rmtree(self.output_dir)
