@@ -63,8 +63,8 @@ class ImageTestBaseClass(unittest.TestCase):
             if result["SsimCompare"] < 0.95:
                 self.fail(f"output differs between: \n {generated_image}\n {reference_image}\n\n")
             else:
-                # os.remove(generated_image)
+                os.remove(generated_image)
                 pass
 
-        # if os.path.exists(self.output_dir):
-            # shutil.rmtree(self.output_dir)
+        if os.path.exists(self.output_dir):
+            shutil.rmtree(self.output_dir)
