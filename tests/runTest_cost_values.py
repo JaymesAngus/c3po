@@ -2,16 +2,6 @@
 # pylint: disable=invalid-name
 
 import unittest
-import os
-import matplotlib
-from matplotlib import pyplot as plt
-
-os.environ.setdefault("MPLBACKEND", "Agg")
-matplotlib.use("Agg", force=True)
-plt.rcParams.update({
-    "figure.dpi": 100,
-    "savefig.dpi": 100,
-})
 
 from c3po.plot_cost_values import main as cost_values
 from c3po.tests._image_test_base_class import ImageTestBaseClass

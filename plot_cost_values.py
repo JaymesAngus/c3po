@@ -61,17 +61,22 @@ def write_cost_data(data, outname):
 def plot_cost_data(data, outputname,
                    ylabel="Cost function value",
                    hline=None):
-    plt.plot(figsize=(8, 5))
-    plt.plot(data.iter, data.J, '-+', label='J')
-    plt.plot(data.iter, data.JoJc, '-+', label='JoJc')
-    plt.plot(data.iter, data.Jb, '-+', label='Jb')
+    # Explicit figure, fixed size and DPI for deterministic output
+    fig, ax = plt.subplots(figsize=(8, 5), dpi=100)
+
+    ax.plot(data.iter, data.J, '-+', label='J')
+    ax.plot(data.iter, data.JoJc, '-+', label='JoJc')
+    ax.plot(data.iter, data.Jb, '-+', label='Jb')
     if hline is not None:
-        plt.axhline(hline, color="black")
-    plt.legend()
-    plt.xlabel("Number of iterations")
-    plt.ylabel(ylabel)
-    plt.savefig(outputname, bbox_inches='tight')
-    plt.close()
+        ax.axhline(hline, color="black")
+    ax.legend(loc="best")
+    ax.set_xlabel("Number of iterations")
+    ax.set_ylabel(ylabel)
+
+    fig.tight_layout()
+    # Avoid tight bbox to prevent environment-dependent resizing
+    fig.savefig(outputname, dpi=100, bbox_inches=None, pad_inches=0.0, transparent=False)
+    plt.close(fig)
 
 
 def plot_cost_difference(jada, var, outputname):
@@ -95,7 +100,7 @@ def plot_cost_difference_over_mean(jada, var, outputname):
 
 
 def plot_cost_data_side_by_side(jada, var, outputname):
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5), sharey=True)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5), dpi=100, sharey=True)
 
     ax1.plot(jada.iter, jada.J, '-+', label='J')
     ax1.plot(jada.iter, jada.JoJc, '-+', label='JoJc')
@@ -103,17 +108,19 @@ def plot_cost_data_side_by_side(jada, var, outputname):
     ax1.set_title("JADA cost function values")
     ax1.set_xlabel("Number of iterations")
     ax1.set_ylabel("Cost function value")
+    ax1.legend(loc="best")
 
     ax2.plot(var.iter, var.J, '-+', label='J')
     ax2.plot(var.iter, var.JoJc, '-+', label='JoJc')
     ax2.plot(var.iter, var.Jb, '-+', label='Jb')
-    ax2.legend(loc='right', bbox_to_anchor=(1.25, 0.5))
     ax2.set_title("VAR cost function values")
     ax2.set_xlabel("Number of iterations")
+    ax2.legend(loc="best")
 
-    plt.subplots_adjust(wspace=0, hspace=0)
-    plt.savefig(outputname, bbox_inches='tight')
-    plt.close()
+    # Keep layout stable without content-driven resizing
+    fig.tight_layout()
+    fig.savefig(outputname, dpi=100, bbox_inches=None, pad_inches=0.0, transparent=False)
+    plt.close(fig)
 
 def main(jadafile, varfile, output_dir):
     os.makedirs(output_dir, exist_ok=True)
