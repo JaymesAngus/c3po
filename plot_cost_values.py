@@ -3,6 +3,22 @@ import copy
 import matplotlib.pyplot as plt
 import os
 from lib.costLib import *
+import matplotlib as mpl
+
+# Make rendering deterministic across environments
+mpl.use("Agg", force=True)
+mpl.rcdefaults()
+mpl.rcParams.update({
+    "figure.dpi": 100,
+    "savefig.dpi": 100,
+    "savefig.bbox": "standard",       # ensure no content-driven resizing
+    "savefig.pad_inches": 0.0,
+    "figure.constrained_layout.use": False,
+    "figure.autolayout": False,
+    "font.family": "DejaVu Sans",
+    "font.sans-serif": ["DejaVu Sans"],
+    "mathtext.fontset": "dejavusans",
+})
 
 """
 Example usage:
@@ -61,9 +77,7 @@ def write_cost_data(data, outname):
 def plot_cost_data(data, outputname,
                    ylabel="Cost function value",
                    hline=None):
-    # Explicit figure, fixed size and DPI for deterministic output
     fig, ax = plt.subplots(figsize=(8, 5), dpi=100)
-
     ax.plot(data.iter, data.J, '-+', label='J')
     ax.plot(data.iter, data.JoJc, '-+', label='JoJc')
     ax.plot(data.iter, data.Jb, '-+', label='Jb')
@@ -73,8 +87,8 @@ def plot_cost_data(data, outputname,
     ax.set_xlabel("Number of iterations")
     ax.set_ylabel(ylabel)
 
-    fig.tight_layout()
-    # Avoid tight bbox to prevent environment-dependent resizing
+    # Avoid tight_layout; keep fixed canvas size
+    fig.subplots_adjust(left=0.12, right=0.98, bottom=0.12, top=0.92)
     fig.savefig(outputname, dpi=100, bbox_inches=None, pad_inches=0.0, transparent=False)
     plt.close(fig)
 
@@ -117,8 +131,8 @@ def plot_cost_data_side_by_side(jada, var, outputname):
     ax2.set_xlabel("Number of iterations")
     ax2.legend(loc="best")
 
-    # Keep layout stable without content-driven resizing
-    fig.tight_layout()
+    # Fixed spacing to avoid any auto layout affecting saved size
+    fig.subplots_adjust(left=0.08, right=0.98, bottom=0.12, top=0.90, wspace=0.35)
     fig.savefig(outputname, dpi=100, bbox_inches=None, pad_inches=0.0, transparent=False)
     plt.close(fig)
 
